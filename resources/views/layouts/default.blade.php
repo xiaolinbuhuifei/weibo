@@ -6,10 +6,14 @@
   </head>
 
   <body>
+    {{-- 头部导航 --}}
     @include('layouts._header')
 
     <div class="container">
       <div class="offset-md-1 col-md-10">
+        {{-- 提示信息 --}}
+        @include('shared._messages')
+        {{-- 内容 --}}
         @yield('content')
         @include('layouts._footer')
       </div>
