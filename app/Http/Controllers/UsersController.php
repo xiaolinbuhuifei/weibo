@@ -7,6 +7,18 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        //权限验证，除了show,create,store，之外都要登录权限
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store']
+        ]);
+        //只允许未登录用户访问注册页面
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
     public function create()
     {
         return view('users.create');
@@ -37,11 +49,13 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user);//授权策略验证，是否是当前用户
         return view('users.edit', compact('user'));
     }
 
     public function update(User $user, Request $request)
     {
+        $this->authorize('update', $user);//授权策略验证，是否是当前用户
         $this->validate($request, [
             'name' => 'required|max:50',
             'password' => 'nullable|confirmed|min:6'
