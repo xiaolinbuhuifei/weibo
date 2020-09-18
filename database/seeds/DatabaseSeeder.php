@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersTableSeeder::class);//调用要运行的填充数据文件
         $this->call(StatusesTableSeeder::class);
+        $this->call(FollowersTableSeeder::class);
 
         Model::reguard();
     }
